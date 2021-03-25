@@ -120,6 +120,9 @@ EXPOSE 8888
 # fix warning jupyter
 RUN conda install -n torch "nbconvert=5.6.1"
 
+# fix zsh paperspace
+RUN sed -i 's/source $ZSH/ZSH_DISABLE_COMPFIX=true\nsource $ZSH/' ${HOME}/.zshrc
+
 # apex
 RUN git clone https://github.com/NVIDIA/apex ${HOME}/apex
 RUN echo "pip install -v --disable-pip-version-check --no-cache-dir --global-option=\"--cpp_ext\" --global-option=\"--cuda_ext\" ${HOME}/apex && rm -rf ${HOME}/apex" >> ${HOME}/apex.sh
